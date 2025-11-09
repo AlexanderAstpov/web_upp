@@ -1,38 +1,46 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 import uvicorn
+from fastapi.templating import Jinja2Templates
 
 
 app = FastAPI(title="Моё первое Web приложение")
 
-@app.get("/")
-def home():
-    return "Hello World"
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+def index(request: Request):
+    context = {
+        "request": request,
+        "title": "Главная страница",
+        "main_text": " Здесь будет текст для главной страницы с описанием",
+    }
+    return templates.TemplateResponse("index.html", context=context)
 
 
-@app.get("/hello")
-def html_hello():
-    html = """
-    <html>
-        <head>
-        <title>Моё первое Web приложение</title>
-        </head>
-        <body>
-            <h1>Hello World</h1>
-            <p>Наша первая страница</p>
-            <a href="http://localhost:8000/file">На страницу File</a>
-        </body>
-    </html>
-    """
-    return HTMLResponse(content=html)
+@app.get("/about", response_class=HTMLResponse)
+def about(request: Request):
+    context = {
+        "request": request,
+        "title": "О нас",
+        "people_count": 15,
+        "mission": "Наша цель помогать людям растаться с деньгами"
+    }
+    return templates.TemplateResponse("about.html", context=context)
 
-@app.get("/file")
-def from_file():
-    with open("templates/index.html", "r", encoding="utf-8") as fl:
-        content = fl.read()
-    return HTMLResponse(content=content) 
+
+@app.get("/contacts", response_class=HTMLResponse)
+def contacts(request: Request):
+    context = {
+        "request": request,
+        "title": "Контакты",
+        "adress": "ул. Павловская д.26",
+        "phone": "8 (800) 555 35 35",
+        "email": "top@secret.com"
+    }
+    return templates.TemplateResponse("contacts.html", context=context)
 
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=8000, reload=True) #reload=True сервет автоматически перезагружается при изменении кода, при рабочем варианте - убираем.
+    uvicorn.run("main:app", port=8000, reload=True) 
