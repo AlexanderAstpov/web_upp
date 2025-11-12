@@ -21,6 +21,9 @@ def html_hello():
             <h1>Hello World</h1>
             <p>Наша первая страница</p>
             <a href="http://localhost:8000/file">На страницу File</a>
+            <br>
+            <a href="http://localhost:8000/test">На страницу Test</a>
+           
         </body>
     </html>
     """
@@ -29,6 +32,13 @@ def html_hello():
 @app.get("/file")
 def from_file():
     with open("templates/index.html", "r", encoding="utf-8") as fl:
+        content = fl.read()
+    return HTMLResponse(content=content) 
+
+
+@app.get("/test")
+def from_file():
+    with open("templates/test.html", "r", encoding="utf-8") as fl:
         content = fl.read()
     return HTMLResponse(content=content) 
 
