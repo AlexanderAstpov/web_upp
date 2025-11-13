@@ -40,7 +40,16 @@ def contacts(request: Request):
     }
     return templates.TemplateResponse("contacts.html", context=context)
 
-
+@app.get("/services", response_class=HTMLResponse)
+def services(request: Request):
+    context = {
+        "request": request,
+        "title": "Наши услуги",
+        "service1": "Разработка веб-сайтов",
+        "service2": " Дизайн интерфейсов",
+        "service3": "Обслуживание серверов"
+    }
+    return templates.TemplateResponse("services.html", context=context)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True) 
