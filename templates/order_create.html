@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Создать заказ</h1>
+    <form action="" method="post">
+        <labol>Укажите Ваше имя:</labol>
+        <br>
+        <input type="text" name="customer_name" required>
+        <br>
+        <br>
+        <labol>Введите номер телефона:</labol>
+        <br>
+        <input type="text" name="phone_nomer" required>
+        <br>
+        <br>
+        <labol>Выберите товар:</labol>
+        <br>
+        <select name="product_id" required>
+            {% for product in products%}
+                <option value="{{ product.id}}">
+                    {{ product.name }} - {{ product.price}} руб.
+                </option>
+            {%endfor%}
+        </select>
+        <br>
+        <br>
+        <labol>Введите количество:</labol>
+        <br>
+        <input type="number" name="count" min=1 value=1 required>
+        <br>
+        <br>
+
+        <button name="submit">Создать заказ </button>
+
+    </form>
+
+{% endblock %}
