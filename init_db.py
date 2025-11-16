@@ -15,7 +15,7 @@ def init_database():
 
     lst = [
         Product(name = "Хлеб 1л", price=25, count=5),
-        Product(name = "Греска", price=85, count=56),
+        Product(name = "Гречка", price=85, count=56),
         Product(name = "Сахар 1л", price=60, count=50)
     ]
     session.add_all(lst) # добовляем больше одной записи.
@@ -40,6 +40,12 @@ def init_database():
             phone_nomer="89991112255", 
             product_id = 3, 
             count=2
+            ),
+        Order(
+            customer_name="Оля", 
+            phone_nomer="89991112266", 
+            product_id = 1, 
+            count=4
             )
     ]
     session.add_all(lst2)
