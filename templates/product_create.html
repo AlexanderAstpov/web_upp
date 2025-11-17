@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Создать новый товар</h1>
+    <form action="/product/create" method="post">
+        <labol>Название товара</labol>
+        <br>
+        <input type="text" name="name" required>
+        <br>
+        <br>
+        <labol>Цена товара</labol>
+        <br>
+        <input type="number" name="price" required>
+        <br>
+        <br>
+        <labol>Введите количество:</labol>
+        <br>
+        <input type="number" name="count" min=1 value=1 required>
+        <br>
+        <br>
+
+        <button name="submit">Создать заказ </button>
+
+    </form>
+
+{% endblock %}

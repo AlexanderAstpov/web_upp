@@ -110,5 +110,36 @@ def products(request: Request):
     }
     return templates.TemplateResponse("products.html", context=context)
 
+
+@app.get("/product/create", response_class=HTMLResponse)
+def product_create(request: Request):
+    session = Sessionlocal()
+    session.close()
+    data =session.query(Product).all()
+    context = {
+        "request": request,
+        "title": "Создать заказ",
+        "products": data   
+    }
+    return templates.TemplateResponse("product_create.html", context=context)
+
+
+@app.post("/product/create", response_class=RedirectResponse)
+def product_create_data(
+    name: str = Form(...),
+    price: int = Form(...),
+    count: int = Form(...)
+):
+    session = Sessionlocal()
+    new_product = Product(
+        name=name,
+        price= price,
+        count=count
+    )
+    session.add(new_product)
+    session.commit()
+    session.close()
+    return RedirectResponse("/product/create", status_code=303)
+
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True) 
