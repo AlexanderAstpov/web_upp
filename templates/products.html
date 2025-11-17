@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Каталог товаров</h1>
+    <table border="1" cellpadding=15>
+        <tr>
+            <th>Номер товара</th>
+            <th> Наименование товара</th>
+            <th>Цена</th>
+            <th>Количество</th>
+        </tr>
+
+        {% for product in products %}
+        <tr>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.count}}</td>
+        </tr>
+
+        {% endfor %}
+
+
+    </table>
+
+{% endblock %}

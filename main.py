@@ -98,5 +98,17 @@ def order_create_data(
     session.close()
     return RedirectResponse("/orders/create", status_code=303)
 
+@app.get("/products", response_class=HTMLResponse)
+def products(request: Request):
+    session = Sessionlocal()
+    data = session.query(Product).all()
+    session.close()
+    context = {
+        "request": request,
+        "title": "Заказы",
+        "products": data
+    }
+    return templates.TemplateResponse("products.html", context=context)
+
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True) 
